@@ -3,4 +3,4 @@ ContactPratice
 
 a better Pratice for using phonegap contact plugin
 
-[link](../README.md)
+[README](../blob/master/READ.md)
