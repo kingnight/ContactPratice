@@ -1,0 +1,20 @@
+.km-android .km-view .km-content {
+    background-color: rgb(229, 229, 229);
+    color: rgb(0, 0, 0);
+}
+.km-android .km-view .km-tabstrip .km-button {
+    background-color: rgb(127, 127, 127);
+}
+.km-android .km-view .km-navbar {
+    background-color: rgb(127, 127, 127);
+}
+.km-android .km-view .km-content .km-list > li .km-icon {
+    color: rgb(0, 0, 0);
+}
+.km-android .km-view .km-tabstrip .km-button .km-icon {
+    color: rgb(0, 0, 0);
+}
+.km-android .km-view .km-content .km-list > li {
+    background-color: rgb(255, 255, 255);
+    border-bottom:1px solid rgba(20,20,20,0.1)
+}

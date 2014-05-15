@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta charset="utf-8" />
+    <title>Contact Practice</title>
+    <meta name="format-detection" content="telephone=no"/>
+    <link href="libs/kendo.mobile.all.min.css" rel="stylesheet" />
+    <script src="cordova.js"></script>
+</head>
+
+<body>
+	<div data-role="view" id="contacts-view" data-title="通讯录" data-init="app.contactsView.show">
+		<header data-role="header">
+	        <div data-role="navbar">
+                <a data-role="button" href="#contacts-view-edit" id="contacts-view-save2device" data-align="left">导入联系人</a>
+	            <span data-role="view-title"></span>
+                <a data-role="button" id="contacts-view-refresh" data-align="right" data-click="app.contactsView.refresh">同步</a>
+	        </div>
+	    </header>
+		<ul id="contacts-list"></ul>
+	</div>
+
+    <div data-role="layout" data-id="contact-edit-layout">
+        <div data-role="footer">
+            <div data-role="navbar">
+                <a data-role="button" id="contact-edit-finish" data-align="right" data-click="app.contactsView.finish">确认导入</a>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="view" id="contacts-view-edit" data-layout="contact-edit-layout" data-title="导入联系人" data-show="app.contactsView.showEdit">
+        <header data-role="header">
+            <div data-role="navbar">
+                <a class="nav-button" data-role="backbutton" data-align="left">通讯录</a>
+                <!--a data-role="button" href="#contacts-view" id="contacts-view-return" data-align="left">返回</a-->
+                <span data-role="view-title"></span>
+                <a data-role="button" id="contacts-view-all" data-align="right" data-click="app.contactsView.chooseAll">全选</a>
+            </div>
+        </header>
+        <ul id="contacts-list-edit"></ul>
+    </div>
+
+	<div data-role="view" id="contact-detail-view" data-title="详情" data-show="app.contactsView.showDetail">
+		<header data-role="header">
+	        <div data-role="navbar">
+                <a class="nav-button" data-role="backbutton" data-align="left">通讯录</a>
+	        	<!--a href="#contacts-view" data-role="button" data-align="left">返回</a-->
+	            <span data-role="view-title"></span>
+	        </div>
+	    </header>
+        <br /><br />
+	    <p id="contactName" style="font-size: 1.3em;font-weight:normal;"></p>
+		<ul name="contact-detail-list"  data-role="listview" data-style="inset" data-type="group">			
+			<li>
+				<ul> 
+					<li>
+						<div style="float: left;width: 60%;">
+							<p><span>手机</span></p>
+							<p><span id="contactPhone" class="item-info"></span></p>
+						</div>						
+						<a data-role="button" data-icon="message" style="background: inherit; border: none;" data-click="app.contactsView.message"></a>
+						<a data-role="button" data-icon="dial"  style="background: inherit; border: none;" data-click="app.contactsView.call"></a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<ul>
+					<li>
+						<div style="float: left;width: 75%;">
+							<p><span>办公</span></p>
+							<p><span id="contactTel" class="item-info"></span></p>
+						</div>
+						<a data-role="button" data-icon="dial"  style="background: inherit; border: none;" data-click="app.contactsView.callTel"></a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<ul>
+					<li>
+						<div style="float: left;width: 75%;">
+							<p><span>邮箱</span></p>
+							<p><span id="contactEmail" class="item-info"></span></p>
+						</div>
+						<a data-role="button" data-icon="email" style="background: inherit; border: none;" data-click="app.contactsView.sendsms"></a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<div data-role="view" id="edit-message-view" data-title="短信" data-show="app.contactsView.editMessage">
+		<header data-role="header">
+	        <div data-role="navbar">
+                <a class="nav-button" data-role="backbutton" data-align="left">详情</a>
+	        	<!--a href="#contact-detail-view" data-role="button" data-align="left">返回</a-->
+	            <span data-role="view-title"></span>
+	        </div>
+	    </header>
+	    <div>
+            <ul data-role="listview">
+                <li>
+                    <label for="messageContent">收件人：<span id="readerID"></span></label>
+                </li>
+                <li>
+                    <textarea cols="49" rows="10" style="width: 100%;font-size: 1em;" class="item-info" id="messageContent" name="messageContent"></textarea>
+                </li>
+            </ul>
+
+            <center><a data-role="button" class="km-button" style="width: 50%;marigin-top:1em;" data-click="app.contactsView.sendMsg">发送</a></center>
+	    </div>
+		
+	</div>
+
+    <!-- Error Views -->
+    <div data-role="modalview" id="error-view" style="display: none; width: 95%; height: 90%;">
+        <div data-role="header">
+            <div data-role="navbar">
+                <span>Error</span>
+                <a data-click="app.closeErrorModal" data-role="button" data-align="right">Close</a>
+            </div>
+        </div>
+        
+        <div class="message"></div>
+    </div>
+    
+    <!-- common back layout -->
+	<div data-role="layout" data-id="back-layout">		
+		<header data-role="header">
+	        <div data-role="navbar">	            
+	            <a class="nav-button" data-role="backbutton" data-align="left">返回</a>
+	            <span data-role="view-title"></span>
+	        </div>
+	    </header>
+	</div>
+
+
+	<script type="text/x-kendo-tmpl" id="contacts-template">	    	       
+        <a href="\#contact-detail-view?contactId=#=employeeId#">#=name#</a>
+	</script>
+
+    <script type="text/x-kendo-tmpl" id="contacts-edit-template">
+        #var itemId=employeeId;#
+        <label>
+            <input type="checkbox" id=${itemId} />
+            #=name#
+        </label>
+	</script>
+
+	<script type="text/x-kendo-tmpl" id="contact-detail-template">	    	       
+        <a href="\#contact-detail-view?parent=#=employeeId#">#=name#</a>
+	</script>
+
+    <script data-main="js/main.js" src="libs/require.js"></script>
+</body>
+</html>
