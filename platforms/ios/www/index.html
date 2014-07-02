@@ -7,7 +7,18 @@
     <link href="libs/kendo.mobile.all.min.css" rel="stylesheet" />
     <script src="cordova.js"></script>
 </head>
+<style scoped>
+    .km-root .select-button
+    {
+        color:#fff;
+        background-color:#f60;
+    }
 
+    .km-ios7 .select-button
+    {
+        border-color:transparent;
+    }
+</style>
 <body>
 	<div data-role="view" id="contacts-view" data-title="通讯录" data-init="app.contactsView.show">
 		<header data-role="header">
@@ -17,7 +28,11 @@
                 <a data-role="button" id="contacts-view-refresh" data-align="right" data-click="app.contactsView.refresh">同步</a>
 	        </div>
 	    </header>
-		<ul id="contacts-list"></ul>
+        <center style="margin-top:.5em;">
+            <a data-role="button" id="SortByDep" class="select-button" data-click="app.contactsView.SortByDep">按部门</a>
+            <a data-role="button" id="SortByName" data-click="app.contactsView.SortByName">按姓名</a>
+        </center>
+		<ul id="contacts-list" data-role="listview"></ul>
 	</div>
 
     <div data-role="layout" data-id="contact-edit-layout">
