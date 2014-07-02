@@ -10,7 +10,7 @@
 
         var appOptions = {};
 
-        //appOptions.loading = '<h1 style="color:#ff0000; display: block; top: 50%;font-size: 1.2rem;">please wait...</h1>';
+        appOptions.loading = '<h1></h1>';
         if (kendo.support.mobileOS.android) {
             //appOptions.skin = "flat";
             appOptions.skin = "android-light";
@@ -19,7 +19,7 @@
         else if (kendo.support.mobileOS.ios) {
             appOptions.statusBarStyle = "black-translucent";
             //appOptions.transition = "slide";
-            appOptions.loading ='';
+            //appOptions.loading ='';
         }
        
         var kendoApp=new kendo.mobile.Application($(document.body),appOptions);
